@@ -1,4 +1,4 @@
 class Share < ApplicationRecord
+  has_many_attached :images
   belongs_to :user
-  mount_uploader :image, ImageUploader
 end

@@ -9,7 +9,10 @@
         <li class='list'>
           <%= link_to share_path(share.id) do %>
           <div class='item-img-content'>
-            <%= image_tag share.image.url, class: "item-img" %>
+            <% share.images.each do |image| %>
+              <%= image_tag image, class: "item-img" %>
+            <% end %>
+          </div>
             <%# if share.buy != nil %>
               <%#<div class='sold-out'>
                 <span>Sold Out!!</span>

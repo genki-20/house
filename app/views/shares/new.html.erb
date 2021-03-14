@@ -16,7 +16,8 @@
         <p>
           クリックしてファイルをアップロード
         </p>
-        <%= f.file_field :image, id:"item-image" %>
+        <%= f.file_field :images, name: 'share[images][]', id:"item_image" %>
+        <div id="image-list"></div>
       </div>
     </div>
     <%# /出品画像 %>
@@ -138,6 +139,9 @@
     </div>
     <%# /下部ボタン %>
   </div>
+  <% end %>
+  <% @share.images.each do |image| %>
+    <%= image_tag image, class: 'images' %>
   <% end %>
 
   <footer class="items-sell-footer">

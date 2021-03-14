@@ -4,73 +4,76 @@
 <div class="item-show">
   <div class="item-box">
     <h2 class="name">
-      <%= @item.product_name %>
+      <%= @share.product_name %>
     </h2>
     <div class='item-img-content'>
-      <%= image_tag @item.image ,class:"item-box-img" %>
-      <% if @item.buy != nil %>
+      <% @share.images.each do |image| %>
+        <%= image_tag image, class: "iitem-box-img" %>
+      <% end %>
+      <%# if @share.buy != nil %>
         <div class='sold-out'>
           <span>Sold Out!!</span>
         </div>
-      <% end %>
+      <%# end %>
     </div>
     <div class="item-price-box">
         <span class="item-price">
-        ¥<%= @item.price %>
+        ¥<%= @share.price %>
         </span>
       <span class="item-postage">
-        <%= @item.delivery_fee.name %>
+        <%#= @item.delivery_fee.name %>
       </span>
     </div>
 
     <%# ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
     <% if user_signed_in? %>
-      <% if current_user.id == @item.user_id %>
-      <%= link_to '商品の編集', edit_item_path, method: :get, class: "item-red-btn" %>
-      <p class='or-text'>or</p>
-      <%= link_to '削除', item_path, method: :delete, class:'item-destroy' %>
-      <% elsif  @item.present? %>
-      <%= link_to '購入画面に進む',  item_buys_path(item_id:@item),class:"item-red-btn"%>
-      <% end %>
+     <% if current_user.id == @share.user_id %>
+        <%#= link_to '商品の編集', edit_item_path, method: :get, class: "item-red-btn" %>
+        <p class='or-text'>or</p>
+        <%= link_to '削除', share_path, method: :delete, class:'item-destroy' %>
+        <% elsif  @share.present? %>
+        <%= link_to 'チャット取引', chat_rooms_path(share_id:@share), method: :post, class:"item-red-btn" %>
+        <%#= link_to '購入画面に進む',  share_buys_path(share_id:@share),class:"item-red-btn"%>
+     <% end %>
     <% end %>
     <div class="item-explain-box">
-      <span><%= @item.explanatory_name %></span>
+      <span><%#= @share.explanatory_name %></span>
     </div>
     <table class="detail-table">
       <tbody>
         <tr>
           <th class="detail-item">出品者</th>
-          <td class="detail-value"><%= @item.user.nickname %></td>
+          <td class="detail-value"><%= @share.user.nickname %></td>
         </tr>
         <tr>
           <th class="detail-item">カテゴリー</th>
-          <td class="detail-value"><%= @item.category.name %></td>
+          <td class="detail-value"><%#= @share.category.name %></td>
         </tr>
         <tr>
           <th class="detail-item">商品の状態</th>
-          <td class="detail-value"><%= @item.status.name %></td>
+          <td class="detail-value"><%#= @item.status.name %></td>
         </tr>
         <tr>
           <th class="detail-item">配送料の負担</th>
-          <td class="detail-value"><%= @item.delivery_fee.name %></td>
+          <td class="detail-value"><%#= @item.delivery_fee.name %></td>
         </tr>
         <tr>
           <th class="detail-item">発送元の地域</th>
-          <td class="detail-value"><%= @item.area.name %></td>
+          <td class="detail-value"><%#= @item.area.name %></td>
         </tr>
         <tr>
           <th class="detail-item">発送日の目安</th>
-          <td class="detail-value"><%= @item.delivery_day.name %></td>
+          <td class="detail-value"><%#= @item.delivery_day.name %></td>
         </tr>
       </tbody>
     </table>
     <div class="option">
       <div class="favorite-btn">
-        <%= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
+        <%#= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
         <span>お気に入り 0</span>
       </div>
       <div class="report-btn">
-        <%= image_tag "flag.png" ,class:"report-flag-icon" ,width:"20",height:"20"%>
+        <%#= image_tag "flag.png" ,class:"report-flag-icon" ,width:"20",height:"20"%>
         <span>不適切な商品の通報</span>
       </div>
     </div>
@@ -86,7 +89,7 @@
         不快な言葉遣いなどは利用制限や退会処分となることがあります。
       </p>
       <button type="submit" class="comment-btn">
-        <%= image_tag "comment.png" ,class:"comment-flag-icon" ,width:"20",height:"25"%>
+        <%#= image_tag "comment.png" ,class:"comment-flag-icon" ,width:"20",height:"25"%>
         <span>コメントする<span>
       </button>
     </form>
@@ -99,7 +102,6 @@
       後ろの商品 ＞
     </a>
   </div>
-  <a href="#" class='another-item'><%= @item.category.name %>をもっと見る</a>
+  <a href="#" class='another-item'><%#= @item.category.name %>をもっと見る</a>
 </div>
 
-<%= render "shared/footer" %>
